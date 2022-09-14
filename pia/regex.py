@@ -5,5 +5,6 @@ WHATS_YOUR_NAME = "(what is your name|what's your name|tell me your name|your na
 WHATS_THE_TIME = "(what time is it|what is the time|tell me the time|current time|now time|time?)"
 WHATS_THE_DATE = "((what|which) date is it|what is the date|tell me the date|(current|now|today|today's) date|date?)"
 CREATOR = "(who (create|created|code|coded|develop|developed) you|who is your (creator|author|coder))"
-YOUTUBE_SEARCH = "((search|open)( for| about| on)*(?=.*(for |about |on )*youtube))"
+YOUTUBE_SEARCH = "(((search|open)( for| about| on))*(?=.*(for |about |on )*youtube))"
 GOOGLE_SEARCH = "((search|open)( for| about| on)*|(for |about |on )*google)"
+WIKI_SEARCH = "(((search|open)( for| about| on))*(?=.*(for |about |on )*(wiki|wikipedia)))"

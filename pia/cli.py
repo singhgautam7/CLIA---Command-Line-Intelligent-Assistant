@@ -73,11 +73,19 @@ def _process_query(lower_case_qry) -> str:
         webbrowser.get().open(url)
         return f"Opened the results on your browser."
 
-    # YouTube condition
+    # Google condition
     elif re.search(regx.GOOGLE_SEARCH, lower_case_qry):
         search_term = re.sub(regx.GOOGLE_SEARCH, '', lower_case_qry)
         url = f"https://google.com/search?q={search_term}"
         rich.print("[blue]Here is what I found on[/blue] [bold green]Google[/bold green]")
+        webbrowser.get().open(url)
+        return f"Opened the results on your browser."
+
+    # Wikipedia condition
+    elif re.search(regx.WIKI_SEARCH, lower_case_qry):
+        search_term = re.sub('(search (for|about|on)*|(for|about|on)* (wiki|wikipedia))', '', lower_case_qry)
+        url = f"https://en.wikipedia.org/wiki/Special:Search?go=Go&search={search_term}"
+        rich.print("[blue]Here is what I found on[/blue] [bold grey]Wikipedia[/bold grey]")
         webbrowser.get().open(url)
         return f"Opened the results on your browser."
 
