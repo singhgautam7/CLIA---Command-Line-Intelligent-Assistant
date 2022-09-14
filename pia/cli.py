@@ -2,14 +2,13 @@ import random
 import re
 import webbrowser
 from datetime import datetime
-from time import sleep
 from typing import Optional
 
 import rich
 import typer
 
-from pia import __app_name__, __version__
 import pia.regex as regx
+from pia import __app_name__, __version__
 
 app = typer.Typer()
 
