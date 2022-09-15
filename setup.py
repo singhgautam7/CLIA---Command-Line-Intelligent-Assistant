@@ -8,7 +8,7 @@ setup(
     description='CLIA - Command Line Intelligent Assistant',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    version='0.1.0',
+    version='0.1.1',
     license='MIT',
     author="Gautam Rajeev Singh",
     author_email='gautamsingh1997@gmail.com',

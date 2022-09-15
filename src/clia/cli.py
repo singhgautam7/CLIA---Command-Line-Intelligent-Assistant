@@ -24,7 +24,8 @@ def _version_callback(value: bool) -> None:
 
 def _google_search(search_term: str, flag_sleep: bool = False):
     url = f"https://google.com/search?q={search_term}"
-    rich.print("[blue]Here is what I found on[/blue] [bold green]Google[/bold green]")
+    rich.print(f"[blue]Here is what I found on [bold green]Google[/bold green] "
+               f"for [underline]{search_term}[/underline][/blue]")
     if flag_sleep:
         sleep(1)
     webbrowser.get().open(url)
@@ -32,7 +33,8 @@ def _google_search(search_term: str, flag_sleep: bool = False):
 
 def _youtube_search(search_term: str, flag_sleep: bool = False):
     url = f"https://www.youtube.com/results?search_query={search_term}"
-    rich.print("[blue]Here is what I found on[/blue] [bold red]YouTube[/bold red]")
+    rich.print(f"[blue]Here is what I found on [bold red]YouTube[/bold red] "
+               f"for [underline]{search_term}[/underline][/blue]")
     if flag_sleep:
         sleep(1)
     webbrowser.get().open(url)
@@ -40,7 +42,8 @@ def _youtube_search(search_term: str, flag_sleep: bool = False):
 
 def _wiki_search(search_term: str, flag_sleep: bool = False):
     url = f"https://en.wikipedia.org/wiki/Special:Search?go=Go&search={search_term}"
-    rich.print("[blue]Here is what I found on[/blue] [bold grey]Wikipedia[/bold grey]")
+    rich.print(f"[blue]Here is what I found on [bold grey]Wikipedia[/bold grey] "
+               f"for [underline]{search_term}[/underline][/blue]")
     if flag_sleep:
         sleep(1)
     webbrowser.get().open(url)
@@ -66,16 +69,16 @@ def _process_query(lower_case_qry) -> str:
 
     # How are you
     elif re.search(regx.HOW_ARE_YOU, lower_case_qry):
-        possible_outputs = ["I am good.", "Okay-ish.", "I am good, thank you. Hope you are fine as well", "I am fine",
+        possible_outputs = ["I am good", "Okay-ish", "I am good, thank you. Hope you are fine as well", "I am fine",
                             "I am well, thank you for asking"]
         return f"{random.sample(possible_outputs, 1)[0]}."
 
     # What is your name
     elif re.search(regx.WHATS_YOUR_NAME, lower_case_qry):
-        possible_outputs = ["It's [bold green]Pia[/bold green]",
-                            "My name is [bold  green]Pia[/bold green]",
-                            "Well, people usually call me [bold green]Pia[/bold green], "
-                            "but my real name is Python Intelligent Assistant."]
+        possible_outputs = ["It's [bold green]Clia[/bold green]",
+                            "My name is [bold  green]Clia[/bold green]",
+                            "Well, people usually call me [bold green]Clia[/bold green], "
+                            "but my real name is Command Line Intelligent Assistant"]
         return f"{random.sample(possible_outputs, 1)[0]}."
 
     # Time
@@ -93,21 +96,21 @@ def _process_query(lower_case_qry) -> str:
 
     # YouTube condition
     elif re.search(regx.YOUTUBE_SEARCH, lower_case_qry):
-        search_term = re.sub('(search (for|about|on)*|(for|about|on)* youtube)', '', lower_case_qry)
+        search_term = re.sub('(search (for|about|on)*|(for|about|on|in)* youtube)', '', lower_case_qry)
         _youtube_search(search_term)
         return f"[grey itallic]Opened the results on your browser.[/grey itallic]"
+
+    # Wikipedia condition
+    elif re.search(regx.WIKI_SEARCH, lower_case_qry):
+        search_term = re.sub('(search (for|about|on)*|(for|about|on|in)* (wikipedia))', '', lower_case_qry)
+        _wiki_search(search_term)
+        return f"[grey italic]Opened the results on your browser.[/grey italic]"
 
     # Google condition
     elif re.search(regx.GOOGLE_SEARCH, lower_case_qry):
         search_term = re.sub(regx.GOOGLE_SEARCH, '', lower_case_qry)
         _google_search(search_term)
         return f"[grey itallic]Opened the results on your browser.[/grey itallic]"
-
-    # Wikipedia condition
-    elif re.search(regx.WIKI_SEARCH, lower_case_qry):
-        search_term = re.sub('(search (for|about|on)*|(for|about|on)* (wiki|wikipedia))', '', lower_case_qry)
-        _wiki_search(search_term)
-        return f"[grey italic]Opened the results on your browser.[/grey italic]"
 
     elif re.search(regx.JOKE, lower_case_qry):
         r = requests.get('https://v2.jokeapi.dev/joke/Programming,Pun?format=txt')
