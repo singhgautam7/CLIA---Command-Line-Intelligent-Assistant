@@ -8,3 +8,4 @@ CREATOR = "(who (create|created|code|coded|develop|developed) you|who is your (c
 YOUTUBE_SEARCH = "(((search|open)( for| about| on))*(?=.*(for |about |on )*youtube))"
 GOOGLE_SEARCH = "((search|open)( for| about| on)*|(for |about |on )*google)"
 WIKI_SEARCH = "(((search|open)( for| about| on))*(?=.*(for |about |on )*(wiki|wikipedia)))"
+JOKE = "(a joke|tell me a joke|tell a joke|make me (laugh|smile))"

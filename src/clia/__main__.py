@@ -1,4 +1,7 @@
-from . import cli
+try:
+    from . import cli
+except ImportError:
+    import cli
 
 
 def main():

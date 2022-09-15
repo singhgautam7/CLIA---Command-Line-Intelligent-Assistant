@@ -2,11 +2,16 @@ import random
 import re
 import webbrowser
 from datetime import datetime
+from time import sleep
 
+import requests
 import rich
 import typer
 
-from . import constants_regex as regx
+try:
+    from . import constants_regex as regx
+except ImportError:
+    import constants_regex as regx
 
 app = typer.Typer()
 
@@ -15,6 +20,30 @@ def _version_callback(value: bool) -> None:
     if value:
         typer.echo(f"PIA - Python Intelligent Assistant")
         raise typer.Exit()
+
+
+def _google_search(search_term: str, flag_sleep: bool = False):
+    url = f"https://google.com/search?q={search_term}"
+    rich.print("[blue]Here is what I found on[/blue] [bold green]Google[/bold green]")
+    if flag_sleep:
+        sleep(1)
+    webbrowser.get().open(url)
+
+
+def _youtube_search(search_term: str, flag_sleep: bool = False):
+    url = f"https://www.youtube.com/results?search_query={search_term}"
+    rich.print("[blue]Here is what I found on[/blue] [bold red]YouTube[/bold red]")
+    if flag_sleep:
+        sleep(1)
+    webbrowser.get().open(url)
+
+
+def _wiki_search(search_term: str, flag_sleep: bool = False):
+    url = f"https://en.wikipedia.org/wiki/Special:Search?go=Go&search={search_term}"
+    rich.print("[blue]Here is what I found on[/blue] [bold grey]Wikipedia[/bold grey]")
+    if flag_sleep:
+        sleep(1)
+    webbrowser.get().open(url)
 
 
 def _process_query(lower_case_qry) -> str:
@@ -65,26 +94,24 @@ def _process_query(lower_case_qry) -> str:
     # YouTube condition
     elif re.search(regx.YOUTUBE_SEARCH, lower_case_qry):
         search_term = re.sub('(search (for|about|on)*|(for|about|on)* youtube)', '', lower_case_qry)
-        url = f"https://www.youtube.com/results?search_query={search_term}"
-        rich.print("[blue]Here is what I found on[/blue] [bold red]YouTube[/bold red]")
-        webbrowser.get().open(url)
-        return f"Opened the results on your browser."
+        _youtube_search(search_term)
+        return f"[grey itallic]Opened the results on your browser.[/grey itallic]"
 
     # Google condition
     elif re.search(regx.GOOGLE_SEARCH, lower_case_qry):
         search_term = re.sub(regx.GOOGLE_SEARCH, '', lower_case_qry)
-        url = f"https://google.com/search?q={search_term}"
-        rich.print("[blue]Here is what I found on[/blue] [bold green]Google[/bold green]")
-        webbrowser.get().open(url)
-        return f"Opened the results on your browser."
+        _google_search(search_term)
+        return f"[grey itallic]Opened the results on your browser.[/grey itallic]"
 
     # Wikipedia condition
     elif re.search(regx.WIKI_SEARCH, lower_case_qry):
         search_term = re.sub('(search (for|about|on)*|(for|about|on)* (wiki|wikipedia))', '', lower_case_qry)
-        url = f"https://en.wikipedia.org/wiki/Special:Search?go=Go&search={search_term}"
-        rich.print("[blue]Here is what I found on[/blue] [bold grey]Wikipedia[/bold grey]")
-        webbrowser.get().open(url)
-        return f"Opened the results on your browser."
+        _wiki_search(search_term)
+        return f"[grey italic]Opened the results on your browser.[/grey italic]"
+
+    elif re.search(regx.JOKE, lower_case_qry):
+        r = requests.get('https://v2.jokeapi.dev/joke/Programming,Pun?format=txt')
+        return r.text
 
 
 @app.command(name='tell-me')
@@ -94,9 +121,14 @@ def tell_me(query: str) -> None:
 
     # if output not present
     if not output:
-        rich.print("[bold red]Sorry, I did not get that[/bold red]")
+        _google_search(lower_case_qry, flag_sleep=True)
         return
-    rich.print(f"[blue]{output}[/blue]")
+
+    # If the print is already not formatted
+    if '[' not in output and ']' not in output:
+        rich.print(f"[blue]{output}[/blue]")
+    else:
+        rich.print(output)
 
 
 @app.callback()
