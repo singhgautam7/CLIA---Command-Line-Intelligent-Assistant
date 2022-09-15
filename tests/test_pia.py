@@ -1,6 +1,7 @@
 from typer.testing import CliRunner
 
-from pia import __app_name__, __version__, cli
+from src import __app_name__, __version__
+from src.pia import cli
 
 runner = CliRunner()
 

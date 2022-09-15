@@ -2,20 +2,18 @@ import random
 import re
 import webbrowser
 from datetime import datetime
-from typing import Optional
 
 import rich
 import typer
 
-import pia.regex as regx
-from pia import __app_name__, __version__
+import regex as regx
 
 app = typer.Typer()
 
 
 def _version_callback(value: bool) -> None:
     if value:
-        typer.echo(f"{__app_name__} v{__version__}")
+        typer.echo(f"PIA - Python Intelligent Assistant")
         raise typer.Exit()
 
 
@@ -102,14 +100,5 @@ def tell_me(query: str) -> None:
 
 
 @app.callback()
-def main(
-        version: Optional[bool] = typer.Option(
-            None,
-            "--version",
-            "-v",
-            help="Show the application's version and exit",
-            callback=_version_callback,
-            is_eager=True,
-        )
-) -> None:
+def main() -> None:
     return

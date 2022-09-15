@@ -1,6 +1,3 @@
-__app_name__ = "pia"
-__version__ = "0.1.0"
-
 (
     SUCCESS,
     DIR_ERROR,
