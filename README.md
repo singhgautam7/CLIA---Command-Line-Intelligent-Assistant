@@ -1,4 +1,4 @@
-A Python Intelligent Assistant (PIA, pronounced as _piya_) which runs on the command line interface.
+A Command Line Intelligent Assistant (CLIA, pronounced as _clea_) build using Python.
 
 ## Dependencies
 - [typer](https://pypi.org/project/typer/) - To create a CLI application
