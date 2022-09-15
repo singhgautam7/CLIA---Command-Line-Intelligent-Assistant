@@ -12,7 +12,7 @@ setup(
     license='MIT',
     author="Gautam Rajeev Singh",
     author_email='gautamsingh1997@gmail.com',
-    url='https://github.com/singhgautam7/PIA---Python-Intelligent-Assistant',
+    url='https://github.com/singhgautam7/CLIA---Command-Line-Intelligent-Assistant',
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
