@@ -1,8 +1,8 @@
-import cli
+from . import cli
 
 
 def main():
-    cli.app(prog_name="pia_cli")
+    cli.app(prog_name="clia")
 
 
 if __name__ == "__main__":

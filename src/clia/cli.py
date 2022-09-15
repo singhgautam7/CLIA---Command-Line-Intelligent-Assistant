@@ -6,7 +6,7 @@ from datetime import datetime
 import rich
 import typer
 
-import regex as regx
+from . import constants_regex as regx
 
 app = typer.Typer()
 
